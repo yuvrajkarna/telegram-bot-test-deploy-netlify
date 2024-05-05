@@ -7,10 +7,18 @@ import EventModel from "../../src/models/Event.js";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { marked } from "marked";
 import PlainTextRenderer from "marked-plaintext";
+import express from 'express';
+
 
 dotenv.config();
 
 const bot = new Telegraf(process.env.TELEGRAM_BOT_API);
+
+const app = express();
+
+app.get("/", (req, res) => {
+    res.statusCode(200).sendMessage("Everything all right.")
+})
 
 try {
   connectDB();
@@ -192,3 +200,8 @@ export const handler = async (event) => {
     };
   }
 };
+
+
+app.listen(3000, () => {
+    console.log("listening on 3000")
+})
